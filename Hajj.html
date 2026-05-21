@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hajj 2026 Live Countdown</title>
+    <!-- Google Fonts for Elegant Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital@1&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #064e3b; /* Deep Islamic Green */
+            --secondary-color: #d97706; /* Elegant Gold/Amber */
+            --light-bg: #f3f4f6;
+            --dark-text: #1f2937;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+            padding-bottom: 60px; /* Space for fixed footer */
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(6, 78, 59, 0.95), rgba(6, 78, 59, 0.85)), 
+                        url('https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?q=80&w=1920') no-repeat center center/cover;
+            color: var(--white);
+            text-align: center;
+            padding: 60px 20px;
+            border-bottom: 5px solid var(--secondary-color);
+        }
+
+        .arabic-text {
+            font-family: 'Amiri', serif;
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Countdown Container */
+        .countdown-container {
+            background: var(--white);
+            max-width: 800px;
+            margin: -40px auto 40px auto;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            border: 1px solid rgba(217, 119, 6, 0.3);
+        }
+
+        .time-box {
+            text-align: center;
+            flex: 1;
+            min-width: 120px;
+            padding: 15px;
+            background: #f9fafb;
+            border-radius: 10px;
+            border-bottom: 4px solid var(--primary-color);
+        }
+
+        .time-box span {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .time-box label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            color: #6b7280;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        /* Main Content Split Layout */
+        .main-layout {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 968px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Timeline / Rituals Side */
+        .rituals-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .timeline {
+            position: relative;
+            border-left: 3px solid var(--secondary-color);
+            padding-left: 20px;
+            margin-left: 10px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -27px;
+            top: 5px;
+            background: var(--primary-color);
+            border: 3px solid var(--secondary-color);
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .timeline-day {
+            font-weight: 700;
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+        }
+
+        .timeline-title {
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin: 5px 0;
+        }
+
+        .timeline-desc {
+            font-size: 0.95rem;
+            color: #4b5563;
+        }
+
+        /* Info Sidebar */
+        .info-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .info-card {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--secondary-color);
+        }
+
+        .info-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .info-card ul {
+            list-style: none;
+        }
+
+        .info-card ul li {
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .info-card ul li::before {
+            content: '•';
+            color: var(--secondary-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+
+        /* Custom "Created By" Section placed gracefully */
+        .credits-box {
+            text-align: center;
+            padding: 15px;
+            background: linear-gradient(135deg, #064e3b, #022c22);
+            color: #fff;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .credits-box span {
+            color: var(--secondary-color);
+            font-weight: 700;
+        }
+
+        /* Footer Marquee */
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #111827;
+            color: var(--white);
+            overflow: hidden;
+            white-space: nowrap;
+            padding: 12px 0;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            border-top: 2px solid var(--secondary-color);
+        }
+
+        .marquee-text {
+            display: inline-block;
+            padding-left: 100%;
+            animation: marquee 25s linear infinite;
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 1px;
+        }
+
+        @keyframes marquee {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-100%, 0); }
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 1.8rem; }
+            .arabic-text { font-size: 1.8rem; }
+            .time-box span { font-size: 1.8rem; }
+            .countdown-container { margin: -20px 15px 30px 15px; padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Hero Section -->
+    <header class="hero">
+        <div class="arabic-text">لَبَّيْكَ اللَّهُمَّ لَبَّيْكَ</div>
+        <h1>HAJJ 2026</h1>
+        <p>InshaAllah, anticipating the holy journey of a lifetime</p>
+    </header>
+
+    <!-- Live Countdown Clock -->
+    <section class="countdown-container">
+        <div class="time-box">
+            <span id="days">00</span>
+            <label>Days</label>
+        </div>
+        <div class="time-box">
+            <span id="hours">00</span>
+            <label>Hours</label>
+        </div>
+        <div class="time-box">
+            <span id="minutes">00</span>
+            <label>Minutes</label>
+        </div>
+        <div class="time-box">
+            <span id="seconds">00</span>
+            <label>Seconds</label>
+        </div>
+    </section>
+
+    <!-- Main Content Layout -->
+    <main class="main-layout">
+        
+        <!-- Left Side: Day-by-Day Hajj Rituals -->
+        <section class="rituals-card">
+            <h2 class="section-title">Hajj Days & Rituals (Kya Kya Karte Hain)</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-day">8 Dhul Hijjah (Day 1)</div>
+                    <div class="timeline-title">Mina Ka Safar</div>
+                    <div class="timeline-desc">Hujjaj Ihram pehenkar Mina ke liye rawana hote hain aur wahan Zuhr, Asr, Maghrib, Isha, aur agle din ki Fajr ki namaz ada karte hain.</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-day">9 Dhul Hijjah (Day 2)</div>
+                    <div class="timeline-title">Arafat Ka Waqoof & Muzdalifah</div>
+                    <div class="timeline-desc">Hajj ka sabse bada rukan. Arafat ke maidan mein Wuqoof aur dua ki jaati hai. Maghrib ke baad bina namaz padhe Muzdalifah jana hota hai aur wahan Maghrib+Isha milakar padhte hain aur khule aasman tale raat guzarte hain.</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-day">10 Dhul Hijjah (Day 3)</div>
+                    <div class="timeline-title">Rami, Qurbani, Aur Halq (Eid Day)</div>
+                    <div class="timeline-desc">Mina laut kar bade Shaitan ko kankari marna (Rami), Qurbani karna, Baal katwana (Halq) aur Ihram kholna. Iske baad Makkah jakar Tawaf-e-Ziyarah kiya jata hai.</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-day">11 & 12 Dhul Hijjah (Day 4 & 5)</div>
+                    <div class="timeline-title">Ayyaam-e-Tashreeq</div>
+                    <div class="timeline-desc">Mina mein qiyaam karna aur teeno Shaitano ko tarteeb se kankariyan marna. Hajj ke arkaan mukammal karne ki khushi aur shukrana.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Right Side: Quick Info & Creative Credit Placement -->
+        <aside class="info-sidebar">
+            <div class="info-card">
+                <h3>Hajj Ki Taiyari</h3>
+                <ul>
+                    <li>Niyyat aur Ihram ke masail seekhna.</li>
+                    <li>Kasrat se Talbiyah padhna.</li>
+                    <li>Sabr aur husn-e-akhlaq ka muzahira karna.</li>
+                    <li>Zaroori duayein yaad karna.</li>
+                </ul>
+            </div>
+
+            <!-- Created By Section - Perfectly aligned with design -->
+            <div class="credits-box">
+                Designed & Developed by<br>
+                <span>Created by Test</span>
+            </div>
+        </aside>
+
+    </main>
+
+    <!-- Flash Style Scrolling Footer -->
+    <footer>
+        <div class="marquee-text">
+            ✦ Hajj 2026 live clock ✦ Keep us in your prayers ✦ Countdown to the blessed journey of Dhul Hijjah 1447 AH ✦ Hajj 2026 live clock ✦ 
+        </div>
+    </footer>
+
+    <!-- JavaScript for Live Counter -->
+    <script>
+        function updateCountdown() {
+            // Tentative Hajj start date for 2026 (approx May 27, 2026)
+            // Aap is date ko exact moon sighting ke hisab se change bhi kar sakte hain
+            const hajjDate = new Date("May 27, 2026 00:00:00").getTime();
+            const now = new Date().getTime();
+            const difference = hajjDate - now;
+
+            if (difference > 0) {
+                const d = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const h = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const s = Math.floor((difference % (1000 * 60)) / 1000);
+
+                document.getElementById("days").innerText = d < 10 ? "0" + d : d;
+                document.getElementById("hours").innerText = h < 10 ? "0" + h : h;
+                document.getElementById("minutes").innerText = m < 10 ? "0" + m : m;
+                document.getElementById("seconds").innerText = s < 10 ? "0" + s : s;
+            } else {
+                // If the date is reached
+                document.querySelector(".countdown-container").innerHTML = "<div style='width:100%; text-align:center; font-weight:bold; color:#064e3b; font-size:1.5rem;'>Hajj Mubarak! The Blessed Days Are Here.</div>";
+            }
+        }
+
+        // Run every second
+        setInterval(updateCountdown, 1000);
+        updateCountdown(); // Initial call
+    </script>
+</body>
+</html>
